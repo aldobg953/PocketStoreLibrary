@@ -43,7 +43,7 @@ También funciona con la extensión **Live Server** de VS Code o publicándolo e
 1. Abre la app una vez con internet.
 2. Abre DevTools → **Application** → **Service Workers** y comprueba que `sw.js` está *activated*.
 3. En **Network**, cambia a **Offline** y recarga la página: la estantería carga igual.
-4. En **Application → Cache Storage** se ven las dos cachés: `pocketstore-shell-v2` y `pocketstore-data-v1`.
+4. En **Application → Cache Storage** se ven las dos cachés: `pocketstore-shell-v3` y `pocketstore-data-v1`.
 
 ---
 
@@ -118,7 +118,7 @@ La estrategia del evento `fetch` es **Cache First**:
 
 Así se cumple la regla: **la primera vez los datos llegan de internet y después ya no**, salvo que se pidan datos nuevos.
 
-> Para publicar cambios en el App Shell hay que subir la versión (por ejemplo, `pocketstore-shell-v3`). El evento `activate` borra la caché anterior.
+> Para publicar cambios en el App Shell hay que subir la versión (por ejemplo, `pocketstore-shell-v4`). El evento `activate` borra la caché anterior.
 
 ### Paso 4 · El Contenido Dinámico (`app.js`)
 

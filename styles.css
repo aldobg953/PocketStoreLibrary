@@ -1,7 +1,3 @@
-/* =========================================================
-   Biblioteca · App Shell
-   Paleta vintage: papel, tinta, vino, latón y madera.
-   ========================================================= */
 :root {
   --paper: #f3ead8;
   --paper-2: #e9dcc0;
@@ -25,13 +21,11 @@ body {
   font-weight: 400;
   color: var(--ink);
   background-color: var(--paper);
-  /* Grano de papel muy sutil */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
 }
 
 a { color: inherit; }
 
-/* ---------- Barra superior ---------- */
 .topbar {
   padding-top: clamp(24px, 5vw, 48px);
   border-bottom: 4px double var(--ink);
@@ -43,7 +37,6 @@ a { color: inherit; }
   margin-inline: auto;
 }
 
-/* Título principal: grande y centrado */
 .brand {
   display: flex;
   flex-direction: column;
@@ -68,7 +61,6 @@ a { color: inherit; }
   box-shadow: inset 0 0 0 2px var(--wine), inset 0 0 0 3px var(--paper-2);
 }
 
-/* ---------- Géneros (debajo del título) ---------- */
 .genres {
   display: flex;
   flex-wrap: wrap;
@@ -98,7 +90,6 @@ a { color: inherit; }
   font-weight: 650;
 }
 
-/* ---------- Contenido ---------- */
 .main {
   padding-block: 20px 48px;
 }
@@ -112,7 +103,6 @@ a { color: inherit; }
   color: var(--ink-soft);
 }
 
-/* La estantería: marco de madera, fondo oscuro y repisas */
 .bookcase {
   overflow: hidden;
   padding: 26px 20px 8px;
@@ -143,8 +133,6 @@ a { color: inherit; }
   from { opacity: 0; transform: translateY(10px); }
 }
 
-/* Portada + repisa: la repisa se dibuja debajo de cada libro y se
-   extiende hacia los lados para formar una tabla continua por fila */
 .cover {
   position: relative;
   display: block;
@@ -173,7 +161,6 @@ a { color: inherit; }
   box-shadow: 0 2px 0 rgba(0,0,0,.35), 6px 2px 12px -4px rgba(0,0,0,.6);
   transition: transform .2s var(--ease), box-shadow .2s var(--ease);
 }
-/* Lomo: sombra y brillo en el borde izquierdo */
 .art::before {
   content: "";
   position: absolute;
@@ -201,7 +188,6 @@ a { color: inherit; }
 }
 .art img.is-loaded { opacity: 1; }
 
-/* Libro sin portada: encuadernación de tela con el título */
 .art--plain {
   display: grid;
   place-items: center;
@@ -226,7 +212,6 @@ a { color: inherit; }
   overflow-wrap: anywhere;
 }
 
-/* Ficha bajo la repisa */
 .tag {
   margin: 8px 0 0;
   color: var(--paper-2);
@@ -251,7 +236,6 @@ a { color: inherit; }
   opacity: .75;
 }
 
-/* Esqueleto mientras cargan los datos */
 .is-skeleton { animation: none; }
 .is-skeleton .art {
   background: rgba(233,220,192,.08);
@@ -260,7 +244,6 @@ a { color: inherit; }
 }
 @keyframes pulse { to { background: rgba(233,220,192,.16); } }
 
-/* Aviso (sin conexión / sin resultados) */
 .notice {
   grid-column: 1 / -1;
   display: grid;
@@ -274,7 +257,6 @@ a { color: inherit; }
 .notice strong { font-size: 1rem; font-weight: 650; }
 .notice p { margin: 0; font-size: .85rem; font-weight: 300; opacity: .8; }
 
-/* ---------- Botón "Cargar más" ---------- */
 .more {
   display: flex;
   justify-content: center;
