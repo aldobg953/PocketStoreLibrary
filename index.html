@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PocketStore · Biblioteca de bolsillo</title>
+  <meta name="description" content="Catálogo de libros que funciona sin conexión.">
+  <meta name="theme-color" content="#7a2e2a">
+
+  <!-- Manifiesto e iconos -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon/icon-192.png">
+  <link rel="apple-touch-icon" href="icon/icon-192.png">
+
+  <!-- Conexiones anticipadas: el navegador abre el canal antes de necesitarlo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://openlibrary.org" crossorigin>
+  <link rel="preconnect" href="https://covers.openlibrary.org">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- ===== App Shell: esta estructura es estática y se pinta al instante ===== -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="./" aria-label="PocketStore, inicio">
+        <svg class="brand__logo" viewBox="0 -960 960 960" aria-hidden="true"><path d="M240-347q14-7 29-10t31-3h20v-440h-20q-25 0-42.5 17.5T240-740v393Zm160-13h320v-440H400v440Zm-160 13v-453 453Zm60 267q-58 0-99-41t-41-99v-520q0-58 41-99t99-41h420q33 0 56.5 23.5T800-800v501q0 8-6.5 14.5T770-270q-14 7-22 20t-8 30q0 17 8 30.5t22 19.5q14 6 22 16.5t8 22.5v10q0 17-11.5 29T760-80H300Zm0-80h373q-6-14-9.5-28.5T660-220q0-16 3-31t10-29H300q-26 0-43 17.5T240-220q0 26 17 43t43 17Z"/></svg>
+        <span>
+          <span class="brand__name">PocketStore</span>
+          <span class="brand__tagline">Biblioteca de bolsillo · Est. 2026</span>
+        </span>
+      </a>
+      <span class="net" id="net" role="status">En línea</span>
+    </div>
+
+    <nav class="genres" id="genres" aria-label="Géneros">
+      <!-- app.js crea los botones de género -->
+    </nav>
+  </header>
+
+  <main class="main">
+    <p class="count" id="count" aria-live="polite">Abriendo la biblioteca…</p>
+
+    <section class="bookcase" aria-label="Estantería de libros">
+      <ul class="shelf" id="shelf" aria-busy="true">
+        <!-- Esqueleto: lugares vacíos en la repisa mientras llegan los datos -->
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+        <li class="book is-skeleton"><div class="cover"><div class="art"></div></div></li>
+      </ul>
+    </section>
+
+    <div class="more">
+      <button class="btn" id="more" type="button" hidden>Cargar más libros</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>PocketStore <span aria-hidden="true">✦</span> Datos de <a href="https://openlibrary.org" target="_blank" rel="noopener">Open Library</a></p>
+    <p class="footer__note">Lo que ya viste se queda guardado y funciona sin conexión.</p>
+  </footer>
+</body>
+</html>

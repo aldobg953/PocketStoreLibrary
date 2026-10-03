@@ -1,0 +1,366 @@
+/* =========================================================
+   PocketStore · App Shell
+   Paleta vintage: papel, tinta, vino, latón y madera.
+   ========================================================= */
+:root {
+  --paper: #f3ead8;
+  --paper-2: #e9dcc0;
+  --ink: #2b2118;
+  --ink-soft: #6b5a48;
+  --wine: #7a2e2a;
+  --brass: #b08d57;
+  --wood-back: #2e2119;
+  --wood-frame: #5a3a22;
+  --wood-plank: linear-gradient(#93623b, #6b4428 55%, #4a2d19);
+  --gap: 28px;
+  --plank: 12px;
+  --ease: cubic-bezier(.2, .7, .3, 1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Mona Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--ink);
+  background-color: var(--paper);
+  /* Grano de papel muy sutil */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+}
+
+a { color: inherit; }
+
+/* ---------- Barra superior ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: 4px double var(--ink);
+}
+
+.topbar__inner,
+.genres,
+.main {
+  width: min(1180px, 100% - 32px);
+  margin-inline: auto;
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 14px 10px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand__logo {
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  fill: var(--paper);
+  background: var(--wine);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 2px var(--wine), inset 0 0 0 3px var(--paper-2);
+}
+
+.brand__name {
+  display: block;
+  font-size: 1.55rem;
+  font-weight: 850;
+  font-stretch: 125%;
+  letter-spacing: -.01em;
+  line-height: 1;
+}
+
+.brand__tagline {
+  display: block;
+  margin-top: 4px;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.net {
+  flex-shrink: 0;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 5px 10px 5px 22px;
+  border: 1px solid currentColor;
+  border-radius: 99px;
+  color: #3d5a45;
+  background: radial-gradient(circle at 11px 50%, currentColor 3.5px, transparent 4.5px);
+}
+.net.is-offline { color: var(--wine); }
+
+/* ---------- Géneros ---------- */
+.genres {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-block: 4px 12px;
+  scrollbar-width: none;
+}
+.genres::-webkit-scrollbar { display: none; }
+
+.chip {
+  flex-shrink: 0;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  border-radius: 99px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+.chip:hover { background: var(--paper-2); }
+.chip[aria-pressed="true"] {
+  color: var(--paper);
+  background: var(--wine);
+  border-color: var(--wine);
+  font-weight: 650;
+}
+
+/* ---------- Contenido ---------- */
+.main {
+  flex: 1;
+  padding-block: 20px 32px;
+}
+
+.count {
+  margin: 0 0 12px;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* La estantería: marco de madera, fondo oscuro y repisas */
+.bookcase {
+  overflow: hidden;
+  padding: 26px 20px 8px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.015) 0 2px, transparent 2px 9px),
+    var(--wood-back);
+  border: 10px solid var(--wood-frame);
+  border-radius: 4px;
+  box-shadow: inset 0 8px 24px rgba(0,0,0,.55), 0 10px 30px -12px rgba(43,33,24,.6);
+}
+
+.shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 22px var(--gap);
+}
+
+.book {
+  min-width: 0;
+  animation: rise .34s var(--ease) both;
+  animation-delay: calc(min(var(--i, 0), 12) * 28ms);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+/* Portada + repisa: la repisa se dibuja debajo de cada libro y se
+   extiende hacia los lados para formar una tabla continua por fila */
+.cover {
+  position: relative;
+  display: block;
+  padding-bottom: var(--plank);
+  text-decoration: none;
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  left: -100vw;
+  right: calc(var(--gap) / -2);
+  bottom: 0;
+  height: var(--plank);
+  background: var(--wood-plank);
+  box-shadow: inset 0 1px rgba(255,255,255,.18);
+}
+.book:last-child .cover::after { right: -100vw; }
+
+.art {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 2px 4px 4px 2px;
+  background: #4a3a2c;
+  box-shadow: 0 2px 0 rgba(0,0,0,.35), 6px 2px 12px -4px rgba(0,0,0,.6);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+/* Lomo: sombra y brillo en el borde izquierdo */
+.art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.18) 4%, transparent 9%);
+  pointer-events: none;
+}
+
+.cover:hover .art,
+.cover:focus-visible .art {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 0 -4px rgba(0,0,0,.25), 6px 10px 18px -4px rgba(0,0,0,.7);
+}
+.cover:focus-visible { outline: none; }
+.cover:focus-visible .art { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+.art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .25s;
+}
+.art img.is-loaded { opacity: 1; }
+
+/* Libro sin portada: encuadernación de tela con el título */
+.art--plain {
+  display: grid;
+  place-items: center;
+  padding: 14px 10px;
+  background: var(--c, var(--wine));
+  color: var(--paper-2);
+  text-align: center;
+}
+.art--plain span {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 8px 4px;
+  border: 1px solid rgba(233,220,192,.5);
+  outline: 1px solid rgba(233,220,192,.25);
+  outline-offset: 3px;
+  font-size: .72rem;
+  font-weight: 650;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+/* Ficha bajo la repisa */
+.tag {
+  margin: 8px 0 0;
+  color: var(--paper-2);
+  line-height: 1.25;
+}
+.tag strong,
+.tag span {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tag strong {
+  -webkit-line-clamp: 2;
+  font-size: .8rem;
+  font-weight: 600;
+}
+.tag span {
+  -webkit-line-clamp: 1;
+  margin-top: 2px;
+  font-size: .7rem;
+  font-weight: 300;
+  opacity: .75;
+}
+
+/* Esqueleto mientras cargan los datos */
+.is-skeleton { animation: none; }
+.is-skeleton .art {
+  background: rgba(233,220,192,.08);
+  box-shadow: none;
+  animation: pulse 1.2s ease-in-out infinite alternate;
+}
+@keyframes pulse { to { background: rgba(233,220,192,.16); } }
+
+/* Aviso (sin conexión / sin resultados) */
+.notice {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 32px 16px 40px;
+  text-align: center;
+  color: var(--paper-2);
+}
+.notice svg { width: 44px; height: 44px; fill: var(--brass); }
+.notice strong { font-size: 1rem; font-weight: 650; }
+.notice p { margin: 0; font-size: .85rem; font-weight: 300; opacity: .8; }
+
+/* ---------- Botón "Cargar más" ---------- */
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+.btn {
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 650;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 22px;
+  box-shadow: inset 0 0 0 1px var(--ink), inset 0 0 0 3px var(--paper);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.btn:hover { background: var(--wine); box-shadow: inset 0 0 0 1px var(--wine), inset 0 0 0 3px var(--paper); }
+.btn:disabled { opacity: .6; cursor: progress; }
+
+/* ---------- Pie de página ---------- */
+.footer {
+  padding: 18px 16px 24px;
+  border-top: 4px double var(--ink);
+  text-align: center;
+  font-size: .78rem;
+  font-weight: 500;
+}
+.footer p { margin: 0; }
+.footer .footer__note {
+  margin-top: 4px;
+  font-weight: 300;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 720px) {
+  :root { --gap: 36px; --plank: 14px; }
+  .shelf { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); row-gap: 28px; }
+  .bookcase { padding: 32px 32px 12px; border-width: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
