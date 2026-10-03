@@ -8,7 +8,7 @@ Práctica **PocketStore**: aplicación web progresiva (PWA) de una sola página,
 
 - **App Shell** que se pinta al instante: encabezado con el título **Biblioteca** grande y centrado, las categorías debajo y una estantería con lugares vacíos (esqueleto).
 - **Estilo vintage**: papel, tinta, vino, latón y madera, con la tipografía **Mona Sans** (Google Fonts) en varios pesos (300 a 850) y su eje de ancho (125 %) para el título.
-- **Animación suave y rápida**: los libros aparecen escalonados (340 ms) y las portadas entran con un fundido. Si el usuario tiene activado "reducir movimiento", las animaciones se desactivan.
+- **Animación suave y rápida**: los libros aparecen escalonados (340 ms) y las portadas entran con un fundido.
 - **Offline**: la primera carga trae los datos de internet. Desde la segunda, todo sale de la caché del Service Worker. Solo se vuelve a usar la red cuando se piden datos nuevos (otro género o "Cargar más libros").
 - **Instalable**: tiene manifiesto e iconos de 192 × 192 y 512 × 512.
 
@@ -43,7 +43,7 @@ También funciona con la extensión **Live Server** de VS Code o publicándolo e
 1. Abre la app una vez con internet.
 2. Abre DevTools → **Application** → **Service Workers** y comprueba que `sw.js` está *activated*.
 3. En **Network**, cambia a **Offline** y recarga la página: la estantería carga igual.
-4. En **Application → Cache Storage** se ven las dos cachés: `pocketstore-shell-v3` y `pocketstore-data-v1`.
+4. En **Application → Cache Storage** se ven las dos cachés: `pocketstore-shell-v4` y `pocketstore-data-v1`.
 
 ---
 
@@ -83,7 +83,7 @@ Decisiones para que **cargue muy rápido**:
 - `<link rel="preconnect">` hacia Google Fonts y Open Library, para abrir esas conexiones antes de necesitarlas.
 - Fuente con `display=swap`: el texto se muestra de inmediato y la fuente se aplica al llegar.
 - `app.js` con `defer`, para que no bloquee el pintado.
-- Portadas en tamaño mediano (`-M.jpg`), con `loading="lazy"`, `decoding="async"` y medidas fijas (`aspect-ratio: 2 / 3`) para que la página no salte al cargar.
+- Portadas en tamaño mediano (`-M.jpg`), con `loading="lazy"` y medidas fijas (`aspect-ratio: 2 / 3`) para que la página no salte al cargar.
 
 La **estantería** es puro CSS: un marco de madera, un fondo oscuro con vetas y una repisa debajo de cada fila. Cada libro dibuja su tramo de repisa con `::after`, y los tramos se unen en una tabla continua.
 
@@ -118,7 +118,7 @@ La estrategia del evento `fetch` es **Cache First**:
 
 Así se cumple la regla: **la primera vez los datos llegan de internet y después ya no**, salvo que se pidan datos nuevos.
 
-> Para publicar cambios en el App Shell hay que subir la versión (por ejemplo, `pocketstore-shell-v4`). El evento `activate` borra la caché anterior.
+> Para publicar cambios en el App Shell hay que subir la versión (por ejemplo, `pocketstore-shell-v5`). El evento `activate` borra la caché anterior.
 
 ### Paso 4 · El Contenido Dinámico (`app.js`)
 

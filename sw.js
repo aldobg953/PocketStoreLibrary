@@ -1,4 +1,4 @@
-const SHELL_CACHE = 'pocketstore-shell-v3';
+const SHELL_CACHE = 'pocketstore-shell-v4';
 const DATA_CACHE = 'pocketstore-data-v1';
 
 const APP_SHELL = [
