@@ -18,28 +18,7 @@ Práctica **PocketStore**: aplicación web progresiva (PWA) de una sola página,
 └── images/            # Capturas del proceso de desarrollo
 ```
 
-## Cómo ejecutarlo
-
-El Service Worker necesita `localhost` o HTTPS, así que no funciona abriendo el archivo con doble clic. Opciones:
-
-```bash
-# Con Python
-python -m http.server 5500
-# Luego abrir http://localhost:5500
-```
-
-También funciona con la extensión **Live Server** de VS Code o publicándolo en **GitHub Pages**.
-
-### Cómo probar el modo offline
-
-1. Abre la app una vez con internet.
-2. Abre DevTools → **Application** → **Service Workers** y comprueba que `sw.js` está *activated*.
-3. En **Network**, cambia a **Offline** y recarga la página: la estantería carga igual.
-4. En **Application → Cache Storage** se ven las dos cachés: `pocketstore-shell-v4` y `pocketstore-data-v1`.
-
----
-
-## Proceso de desarrollo (paso a paso)
+## Proceso de desarrollo
 
 ### Paso 0 · Crear el repositorio
 
@@ -49,7 +28,7 @@ Se creó el repositorio público `PocketStoreLibrary` en GitHub, vacío (sin REA
 
 ### Paso 1 · El Manifiesto (`manifest.json`)
 
-Se escribió a mano el archivo JSON con:
+Se escribió el archivo JSON con:
 
 | Propiedad | Valor | Para qué sirve |
 |---|---|---|
