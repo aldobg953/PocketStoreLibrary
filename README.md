@@ -4,14 +4,6 @@ Práctica **PocketStore**: aplicación web progresiva (PWA) de una sola página,
 
 ![Biblioteca en escritorio](images/resultado-escritorio.jpg)
 
-## Características
-
-- **App Shell** que se pinta al instante: encabezado con el título **Biblioteca** grande y centrado, las categorías debajo y una estantería con lugares vacíos (esqueleto).
-- **Estilo vintage**: papel, tinta, vino, latón y madera, con la tipografía **Mona Sans** (Google Fonts) en varios pesos (300 a 850) y su eje de ancho (125 %) para el título.
-- **Animación suave y rápida**: los libros aparecen escalonados (340 ms) y las portadas entran con un fundido.
-- **Offline**: la primera carga trae los datos de internet. Desde la segunda, todo sale de la caché del Service Worker. Solo se vuelve a usar la red cuando se piden datos nuevos (otro género o "Cargar más libros").
-- **Instalable**: tiene manifiesto e iconos de 192 × 192 y 512 × 512.
-
 ## Estructura
 
 ```
