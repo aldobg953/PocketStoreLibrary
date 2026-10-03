@@ -27,7 +27,6 @@ const $shelf = document.getElementById('shelf');
 const $genres = document.getElementById('genres');
 const $count = document.getElementById('count');
 const $more = document.getElementById('more');
-const $net = document.getElementById('net');
 
 const state = { subject: GENRES[0][0], page: 1, shown: 0, total: 0, request: 0 };
 
@@ -133,11 +132,6 @@ function renderGenres() {
   ).join('');
 }
 
-function updateNetwork() {
-  $net.textContent = navigator.onLine ? 'En línea' : 'Sin conexión';
-  $net.classList.toggle('is-offline', !navigator.onLine);
-}
-
 /* ---------- Eventos ---------- */
 $genres.addEventListener('click', (event) => {
   const chip = event.target.closest('.chip');
@@ -165,10 +159,6 @@ $shelf.addEventListener('error', (event) => {
   img.parentElement.outerHTML = plainCover(escapeHTML(img.alt.replace('Portada de ', '')), index);
 }, true);
 
-window.addEventListener('online', updateNetwork);
-window.addEventListener('offline', updateNetwork);
-
 /* ---------- Inicio ---------- */
 renderGenres();
-updateNetwork();
 registerServiceWorker().then(() => loadBooks(true));

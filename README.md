@@ -1,13 +1,13 @@
-# 📚 PocketStore · Biblioteca de bolsillo
+# 📚 PocketStore · Biblioteca
 
-Aplicación web progresiva (PWA) de una sola página que muestra un catálogo de libros en forma de **estantería**, con datos de la [Open Library API](https://openlibrary.org/developers/api). Está hecha con **HTML, CSS y JavaScript puro (Vanilla JS)** y **funciona sin internet** después de la primera visita.
+Práctica **PocketStore**: aplicación web progresiva (PWA) de una sola página, titulada **Biblioteca**, que muestra un catálogo de libros en forma de **estantería**, con datos de la [Open Library API](https://openlibrary.org/developers/api). Está hecha con **HTML, CSS y JavaScript puro (Vanilla JS)** y **funciona sin internet** después de la primera visita.
 
-![PocketStore en escritorio](images/resultado-escritorio.jpg)
+![Biblioteca en escritorio](images/resultado-escritorio.jpg)
 
 ## Características
 
-- **App Shell** que se pinta al instante: barra superior, estantería con lugares vacíos (esqueleto) y pie de página.
-- **Estilo vintage**: papel, tinta, vino, latón y madera, con la tipografía **Mona Sans** (Google Fonts) en varios pesos (300 a 850) y su eje de ancho para el título.
+- **App Shell** que se pinta al instante: encabezado con el título **Biblioteca** grande y centrado, las categorías debajo y una estantería con lugares vacíos (esqueleto).
+- **Estilo vintage**: papel, tinta, vino, latón y madera, con la tipografía **Mona Sans** (Google Fonts) en varios pesos (300 a 850) y su eje de ancho (125 %) para el título.
 - **Animación suave y rápida**: los libros aparecen escalonados (340 ms) y las portadas entran con un fundido. Si el usuario tiene activado "reducir movimiento", las animaciones se desactivan.
 - **Offline**: la primera carga trae los datos de internet. Desde la segunda, todo sale de la caché del Service Worker. Solo se vuelve a usar la red cuando se piden datos nuevos (otro género o "Cargar más libros").
 - **Instalable**: tiene manifiesto e iconos de 192 × 192 y 512 × 512.
@@ -43,7 +43,7 @@ También funciona con la extensión **Live Server** de VS Code o publicándolo e
 1. Abre la app una vez con internet.
 2. Abre DevTools → **Application** → **Service Workers** y comprueba que `sw.js` está *activated*.
 3. En **Network**, cambia a **Offline** y recarga la página: la estantería carga igual.
-4. En **Application → Cache Storage** se ven las dos cachés: `pocketstore-shell-v1` y `pocketstore-data-v1`.
+4. En **Application → Cache Storage** se ven las dos cachés: `pocketstore-shell-v2` y `pocketstore-data-v1`.
 
 ---
 
@@ -61,7 +61,7 @@ Se escribió a mano el archivo JSON con:
 
 | Propiedad | Valor | Para qué sirve |
 |---|---|---|
-| `name` / `short_name` | PocketStore · Biblioteca de bolsillo / PocketStore | Nombre completo y nombre bajo el icono |
+| `name` / `short_name` | Biblioteca / Biblioteca | Nombre completo y nombre bajo el icono |
 | `start_url` | `./index.html` | Página que abre la app instalada |
 | `display` | `standalone` | Se abre como app, sin la barra del navegador |
 | `background_color` | `#f3ead8` (papel) | Color de la pantalla de carga |
@@ -72,11 +72,10 @@ Los iconos PNG tienen un diseño propio: tres libros y uno inclinado sobre una r
 
 ### Paso 2 · El App Shell (`index.html` y `styles.css`)
 
-Se diseñó la estructura estática que siempre está presente:
+Se diseñó la estructura estática que siempre está presente. Se dejó minimalista, sin barra de estado ni pie de página, para que la atención quede en los libros:
 
-- **Barra superior** (`<header>`): logo, nombre, eslogan, indicador *En línea / Sin conexión* y los botones de género.
+- **Encabezado** (`<header>`): el título **Biblioteca** en tamaño muy grande y centrado (crece con la pantalla usando `clamp()`) y, debajo, los botones de género.
 - **Contenedor principal** (`<main>`): la estantería (`<ul id="shelf">`). Ya trae **8 lugares vacíos** que parpadean suavemente, así el usuario ve la forma de la página antes de que lleguen los datos.
-- **Pie de página** (`<footer>`): créditos a Open Library.
 
 Decisiones para que **cargue muy rápido**:
 
@@ -119,7 +118,7 @@ La estrategia del evento `fetch` es **Cache First**:
 
 Así se cumple la regla: **la primera vez los datos llegan de internet y después ya no**, salvo que se pidan datos nuevos.
 
-> Para publicar cambios en el App Shell hay que subir la versión (`pocketstore-shell-v2`). El evento `activate` borra la caché anterior.
+> Para publicar cambios en el App Shell hay que subir la versión (por ejemplo, `pocketstore-shell-v3`). El evento `activate` borra la caché anterior.
 
 ### Paso 4 · El Contenido Dinámico (`app.js`)
 
@@ -137,7 +136,6 @@ Así se cumple la regla: **la primera vez los datos llegan de internet y despué
 4. **Interacción.**
    - Botones de **género** (Fantasía, Ciencia ficción, Misterio, Romance, Terror, Historia, Poesía).
    - Botón **Cargar más libros** (paginación).
-   - Indicador de conexión con los eventos `online` y `offline`.
 
 ### Paso 5 · Documentación
 

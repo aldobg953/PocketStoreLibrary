@@ -5,7 +5,7 @@
    - fetch:    "cache first": si ya está guardado se sirve desde
                la caché; si no, se pide a internet y se guarda.
    ========================================================= */
-const SHELL_CACHE = 'pocketstore-shell-v1';
+const SHELL_CACHE = 'pocketstore-shell-v2';
 const DATA_CACHE = 'pocketstore-data-v1';
 
 const APP_SHELL = [

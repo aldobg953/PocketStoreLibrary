@@ -1,6 +1,6 @@
 {
-  "name": "PocketStore · Biblioteca de bolsillo",
-  "short_name": "PocketStore",
+  "name": "Biblioteca",
+  "short_name": "Biblioteca",
   "description": "Catálogo de libros offline con datos de Open Library.",
   "lang": "es",
   "start_url": "./index.html",
